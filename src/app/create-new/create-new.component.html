@@ -1,0 +1,94 @@
+<div class="create-new-product">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{isEditing ? 'Edit': 'New'}} Product</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="form-container" [formGroup]="new_product" (ngSubmit)="addData()" #formReference="ngForm">
+        <div class="row">
+          <div class="col-12">
+            <mat-form-field class="full-width">
+              <mat-label>Product Name</mat-label>
+              <input matInput placeholder="ex: Dove Beauty Bar" name="product_name" formControlName="product_name">
+            </mat-form-field>
+            <mat-error *ngIf="new_product.get('product_name')?.invalid && new_product.get('product_name')?.touched">
+              <div *ngIf="new_product.get('product_name')?.errors?.required">
+                Product Name is required
+              </div>
+              <div *ngIf="new_product.get('product_name')?.errors?.minlength">
+                Product Name must be at least 3 characters long
+              </div>
+              </mat-error>
+          </div>
+
+          <div class="col-12">
+            <mat-form-field class="full-width">
+              <mat-label>Product Price</mat-label>
+              <input matInput placeholder="ex: 999" name="product_price" formControlName="product_price">
+            </mat-form-field>
+            <mat-error *ngIf="new_product.get('product_price')?.invalid && new_product.get('product_price')?.touched">
+              <div *ngIf="new_product.get('product_price')?.errors?.required">
+                Product Price is required
+              </div>
+              <div *ngIf="new_product.get('product_price')?.errors?.min">
+                Product Price must be greater than 0
+              </div>
+              <div *ngIf="new_product.get('product_price')?.errors?.pattern">
+                Product Price must be a positive number
+              </div>
+            </mat-error>
+          </div>
+
+          <div class="col-12">
+            <mat-form-field class="full-width">
+              <mat-label>Product Description</mat-label>
+              <textarea matInput
+                placeholder="ex: Made with 1/4 moisturizing cream and mild cleansers, Dove Beauty Bar cares for your skin and effectively washes away dirt and germs."
+                name="product_description" formControlName="product_description">
+              </textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="col-12">
+            <mat-form-field class="full-width">
+              <mat-label>Product Image</mat-label>
+              <input matInput placeholder="ex: https://m.media-amazon.com/images/I/51nf-MK31vL.jpg" name="product_image" formControlName="product_image">
+            </mat-form-field>
+          </div>
+
+          <div class="col-12">
+            <mat-form-field class="full-width">
+              <mat-label>Product Category</mat-label>
+              <input matInput placeholder="ex: Beauty & HealthCare" name="product_category" formControlName="product_category">
+            </mat-form-field>
+            <mat-error *ngIf="new_product.get('product_category')?.invalid && new_product.get('product_category')?.touched">
+              <div *ngIf="new_product.get('product_category')?.errors?.required">
+                Product Category is required
+              </div>
+              <div *ngIf="new_product.get('product_category')?.errors?.minlength">
+                Product Category must be at least 3 characters long
+              </div>
+            </mat-error>  
+          </div>
+
+          <div class="col-12">
+            <mat-form-field class="full-width">
+              <mat-label>Product Brand</mat-label>
+              <input matInput placeholder="ex: Dove" name="product_brand" formControlName="product_brand">
+            </mat-form-field>
+            <mat-error *ngIf="new_product.get('product_brand')?.invalid && new_product.get('product_brand')?.touched">
+              <div *ngIf="new_product.get('product_brand')?.errors?.required">
+                Product Brand is required
+              </div>
+            </mat-error>
+          </div>
+        </div>
+
+        <div class="row mt-1">
+          <button mat-raised-button type="submit" color="primary" class="submitBtn" [disabled]="! formReference.valid">Submit</button>
+          <button mat-raised-button type="button" color="accent" (click)="closeDialog()">Cancel</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
